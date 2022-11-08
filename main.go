@@ -48,7 +48,7 @@ func main() {
 	cmd := exec.Command("xinput", "test-xi2", "--root")
 	out, err := cmd.StdoutPipe()
 	if err != nil {
-		logger.Fatal(err)
+		logger.Fatalf("Could not create pipe for command 'xinput test-xi2 --root': %v\n", err)
 	}
 
 	http.Handle("/metrics", promhttp.Handler())
@@ -57,7 +57,7 @@ func main() {
 	}()
 
 	if err := cmd.Start(); err != nil {
-		logger.Fatal(err)
+		logger.Fatalf("Could not start command 'xinput test-xi2 --root': %v\n", err)
 	}
 
 	scanner := bufio.NewScanner(out)
@@ -68,6 +68,6 @@ func main() {
 	}
 
 	if err := cmd.Wait(); err != nil {
-		logger.Fatal(err)
+		logger.Fatalf("Could not wait for command 'xinput test-xi2 --root': %v\n", err)
 	}
 }
