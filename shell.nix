@@ -2,7 +2,11 @@
 
 with pkgs;
 mkShell {
-  buildInputs = [ hello ];
+  buildInputs = [
+    go_1_19
+    gopls
+    gotools
+  ];
   shellHook = ''
     # ...
   '';
